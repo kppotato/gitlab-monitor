@@ -1,0 +1,353 @@
+[[define "header"]]
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>gitlab-monitor</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <style type="text/css">
+        .octicon {
+            display: inline-block;
+            fill: currentColor;
+        }
+
+        .octicon > path {
+            transform-origin: 50% 50%;
+        }
+
+        .octicon-flip-horizontal > path {
+            transform: scale(-1, 1);
+        }
+
+        .octicon-flip-vertical > path {
+            transform: scale(1, -1);
+        }
+
+        .octicon-spin > path {
+            animation: octicon-spin 1s 0s infinite linear;
+        }
+
+        .octicon-inverse {
+            color: #fff;
+        }
+
+        @keyframes octicon-spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <style type="text/css">
+        svg[data-v-1e0d932b] {
+            fill: currentColor;
+        }
+    </style>
+    <style type="text/css">
+        .job-view[data-v-8fae0f76] {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .job-view:last-child .pipe[data-v-8fae0f76] {
+            display: none;
+        }
+
+        .job-view .job-circle[data-v-8fae0f76] {
+            width: auto;
+            display: inline-block;
+            height: 24px;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+            line-height: 24px;
+            padding: 0 6px;
+            font-size: 12px;
+            transition: background-color 200ms;
+        }
+
+        .job-view .job-circle.square[data-v-8fae0f76] {
+            width: 24px;
+            padding: 0;
+        }
+
+        .job-view .job-circle.success[data-v-8fae0f76] {
+            background-color: #2E7D32;
+        }
+
+        .job-view .job-circle.running[data-v-8fae0f76] {
+            background-color: #1565C0;
+        }
+
+        .job-view .job-circle.pending[data-v-8fae0f76], .job-view .job-circle.warning[data-v-8fae0f76] {
+            background-color: #EF6C00;
+        }
+
+        .job-view .job-circle.failed[data-v-8fae0f76] {
+            background-color: #C62828;
+        }
+
+        .job-view .job-circle.canceled[data-v-8fae0f76] {
+            background-color: #010101;
+        }
+
+        .job-view .job-circle.skipped[data-v-8fae0f76], .job-view .job-circle.manual[data-v-8fae0f76] {
+            background-color: #4b4b4b;
+        }
+
+        .job-view .job-circle svg[data-v-8fae0f76] {
+            width: 100%;
+            height: 100%;
+            fill: rgba(255, 255, 255, 0.8);
+        }
+
+        .job-view .pipe[data-v-8fae0f76] {
+            height: 2px;
+            background-color: rgba(255, 255, 255, 0.8);
+            width: 6px;
+        }
+    </style>
+    <style type="text/css">
+        .pipeline-view[data-v-6adad310]:not(:last-child) {
+            margin-bottom: 4px;
+        }
+
+        .pipeline-view .branch[data-v-6adad310] {
+            color: rgba(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            padding: 0 0 2px 0;
+            text-decoration: none;
+        }
+
+        .pipeline-view .branch .octicon[data-v-6adad310] {
+            margin-right: 4px;
+        }
+
+        .pipeline-view .pipeline[data-v-6adad310] {
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+
+        .pipeline-view .pipeline .pipeline-id-link[data-v-6adad310] {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .pipeline-view .pipeline .pipeline-icon[data-v-6adad310] {
+            width: 16px;
+            height: 16px;
+            margin-right: 1px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .pipeline-view .pipeline .pipeline-id[data-v-6adad310] {
+            margin-right: 8px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .pipeline-view .pipeline .jobs[data-v-6adad310] {
+            white-space: nowrap;
+            margin-right: 8px;
+        }
+
+        .pipeline-view .pipeline .clock-icon[data-v-6adad310] {
+            margin-right: 3px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .pipeline-view .pipeline .duration[data-v-6adad310] {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1;
+            font-size: 14px;
+            margin-right: 6px;
+        }
+
+        .pipeline-view .pipeline .user-icon[data-v-6adad310] {
+            margin-right: 3px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .pipeline-view .pipeline .user[data-v-6adad310] {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1;
+            font-size: 12px;
+        }
+    </style>
+    <style type="text/css">
+        .project-card[data-v-4d356754] {
+            margin: 4px;
+            border-radius: 3px;
+            background-color: #424242;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 200ms;
+        }
+
+        .project-card.success[data-v-4d356754] {
+            background-color: #2E7D32;
+        }
+
+        .project-card.running[data-v-4d356754] {
+            background-color: #1565C0;
+        }
+
+        .project-card.pending[data-v-4d356754] {
+            background-color: #A93F00;
+        }
+
+        .project-card.failed[data-v-4d356754] {
+            background-color: #C62828;
+        }
+
+        .project-card.canceled[data-v-4d356754] {
+            background-color: #010101;
+        }
+
+        .project-card.skipped[data-v-4d356754] {
+            background-color: #4b4b4b;
+        }
+
+        .project-card .content[data-v-4d356754] {
+            padding: 12px;
+        }
+
+        .project-card .content .title[data-v-4d356754] {
+            white-space: nowrap;
+            font-size: 16px;
+            font-weight: bold;
+            text-shadow: 1.5px 1.5px rgba(0, 0, 0, 0.4);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .project-card .content .title.small[data-v-4d356754] {
+            font-size: 12px;
+            line-height: 0.6;
+        }
+
+        .project-card .content .pipeline-container[data-v-4d356754] {
+            padding: 8px 0 0 0;
+        }
+
+        .project-card .content .no-pipelines[data-v-4d356754] {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 10px;
+        }
+
+        .project-card .spacer[data-v-4d356754] {
+            flex-grow: 1;
+        }
+
+        .project-card .info[data-v-4d356754] {
+            padding: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .project-card .info time[data-v-4d356754] {
+            line-height: 1;
+        }
+
+        .project-card .info .calendar-icon[data-v-4d356754] {
+            margin-right: 4px;
+        }
+    </style>
+    <style type="text/css">
+        html {
+            background-color: #212121;
+            color: #dddddd;
+            font-family: Roboto, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 4px;
+        }
+
+        svg {
+            overflow: visible;
+        }
+
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity 0.15s;
+        }
+
+        .fade-enter, .fade-leave-to {
+            opacity: 0;
+        }
+    </style>
+    <style type="text/css">
+        .app .projects[data-v-6c0a0fc1] {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: left;
+        }
+
+        .app .loader[data-v-6c0a0fc1] {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(33, 33, 33, 0.5);
+        }
+
+        .app .container[data-v-6c0a0fc1] {
+            padding: 0 16px;
+            height: 100%;
+        }
+
+        .app .config[data-v-6c0a0fc1] {
+            font-family: "Fira Code", "Fira Mono", "DejaVu Sans Mono", "Consolas", monospace;
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            border: 1px solid gray;
+            width: 100%;
+            min-height: 300px;
+            flex-grow: 1;
+            margin-bottom: 8px;
+        }
+
+        .app .configure[data-v-6c0a0fc1] {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            padding: 16px 16px;
+            background-color: #161616;
+            border-top-right-radius: 3px;
+            border-top: 2px solid white;
+            border-right: 2px solid white;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .app .configure[data-v-6c0a0fc1]:hover {
+            opacity: 1;
+        }
+
+        .app .error[data-v-6c0a0fc1] {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<noscript>
+    <strong>We're sorry but gitlab-monitor doesn't work properly without JavaScript enabled. Please enable it to
+        continue.</strong>
+</noscript>
+[[end]]

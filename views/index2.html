@@ -1,0 +1,783 @@
+{{define "index2.html"}}
+<html class="" lang="en">
+<head prefix="og: http://ogp.me/ns#">
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="object" property="og:type">
+    <meta content="GitLab" property="og:site_name">
+    <meta content="Pipelines · go / config-web" property="og:title">
+    <meta content="配置管理后台" property="og:description">
+    <meta content="http://gitlab.mtime-dev.com/assets/gitlab_logo-7ae504fe4f68fdebb3c2034e36621930cd36ea87924c11ff65dbcb8ed50dca58.png"
+          property="og:image">
+    <meta content="64" property="og:image:width">
+    <meta content="64" property="og:image:height">
+    <meta content="http://gitlab.mtime-dev.com/go/config-web/pipelines" property="og:url">
+    <meta content="summary" property="twitter:card">
+    <meta content="Pipelines · go / config-web" property="twitter:title">
+    <meta content="配置管理后台" property="twitter:description">
+    <meta content="http://gitlab.mtime-dev.com/assets/gitlab_logo-7ae504fe4f68fdebb3c2034e36621930cd36ea87924c11ff65dbcb8ed50dca58.png"
+          property="twitter:image">
+
+    <title>Pipelines · go / config-web · GitLab</title>
+    <meta content="配置管理后台" name="description">
+    <link rel="shortcut icon" type="image/x-icon"
+          href="http://gitlab.mtime-dev.com/assets/favicon-075eba76312e8421991a0c1f89a89ee81678bcde72319dd3e8047e2a47cd3a42.ico"
+          id="favicon">
+    <link rel="stylesheet" media="all"
+          href="/static/test.css">
+    <link rel="stylesheet" media="print"
+          href="http://gitlab.mtime-dev.com/assets/print-74b3d49adeaada27337e759b75a34af7cf3d80051de91d60d40570f5a382e132.css">
+
+
+    <script>
+        //<![CDATA[
+        window.gon = {};
+        gon.api_version = "v4";
+        gon.default_avatar_url = "http:\/\/gitlab.mtime-dev.com\/assets\/no_avatar-849f9c04a3a0d0cea2424ae97b27447dc64a7dbfae83c036c45b403392f0e8ba.png";
+        gon.max_file_size = 10;
+        gon.asset_host = null;
+        gon.webpack_public_path = "\/assets\/webpack\/";
+        gon.relative_url_root = "";
+        gon.shortcuts_path = "\/help\/shortcuts";
+        gon.user_color_scheme = "white";
+        gon.gitlab_url = "http:\/\/gitlab.mtime-dev.com";
+        gon.revision = "3e3c05b";
+        gon.gitlab_logo = "\/assets\/gitlab_logo-7ae504fe4f68fdebb3c2034e36621930cd36ea87924c11ff65dbcb8ed50dca58.png";
+        gon.sprite_icons = "\/assets\/icons-2666da8eb968ba69467c0369d020bf011a5d0b1bd253ba0dbcc43bd0ccbd0dcb.svg";
+        gon.sprite_file_icons = "\/assets\/file_icons-7262fc6897e02f1ceaf8de43dc33afa5e4f9a2067f4f68ef77dcc87946575e9e.svg";
+        gon.test_env = false;
+        gon.suggested_label_colors = ["#0033CC", "#428BCA", "#44AD8E", "#A8D695", "#5CB85C", "#69D100", "#004E00", "#34495E", "#7F8C8D", "#A295D6", "#5843AD", "#8E44AD", "#FFECDB", "#AD4363", "#D10069", "#CC0033", "#FF0000", "#D9534F", "#D1D100", "#F0AD4E", "#AD8D43"];
+        gon.current_user_id = 218;
+        gon.current_username = "kppotato";
+        gon.current_user_fullname = "kuipeng";
+        gon.current_user_avatar_url = "https:\/\/www.gravatar.com\/avatar\/e54b6be04f971c209d6da5c264f1540a?s=80\u0026d=identicon";
+        //]]>
+    </script>
+
+    <script src="/assets/webpack/webpack_runtime.bf993a5b9d06faed3c70.bundle.js" defer="defer"></script>
+    <script src="/assets/webpack/common.db159cd75479db13c6a5.bundle.js" defer="defer"></script>
+    <script src="/assets/webpack/main.7539c74898ef3ae85a9a.bundle.js" defer="defer"></script>
+
+    <script src="/assets/webpack/pages.projects.01592773ca8dd5701db7.bundle.js" defer="defer"></script>
+    <script src="/assets/webpack/pages.projects.pipelines.index.95c4d28afbb3942fd5d9.bundle.js" defer="defer"></script>
+    <script>
+        window.uploads_path = "/go/config-web/uploads";
+    </script>
+
+    <meta name="csrf-param" content="authenticity_token">
+    <meta name="csrf-token"
+          content="aZ4upg29ed23s0ibya2iVhqsT47gxzWpSfk6JSV4tUzKRy2Hr9UT5QvuC0HrPCIYJjI3wONfb4Q79ZuAXe8W9w==">
+    <meta content="origin-when-cross-origin" name="referrer">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+    <meta content="#474D57" name="theme-color">
+    <link rel="apple-touch-icon" type="image/x-icon"
+          href="/assets/touch-icon-iphone-5a9cee0e8a51212e70b90c87c12f382c428870c0ff67d1eb034d884b78d2dae7.png">
+    <link rel="apple-touch-icon" type="image/x-icon"
+          href="/assets/touch-icon-ipad-a6eec6aeb9da138e507593b464fdac213047e49d3093fc30e90d9a995df83ba3.png"
+          sizes="76x76">
+    <link rel="apple-touch-icon" type="image/x-icon"
+          href="/assets/touch-icon-iphone-retina-72e2aadf86513a56e050e7f0f2355deaa19cc17ed97bbe5147847f2748e5a3e3.png"
+          sizes="120x120">
+    <link rel="apple-touch-icon" type="image/x-icon"
+          href="/assets/touch-icon-ipad-retina-8ebe416f5313483d9c1bc772b5bbe03ecad52a54eba443e5215a22caed2a16a2.png"
+          sizes="152x152">
+    <link color="rgb(226, 67, 41)"
+          href="http://gitlab.mtime-dev.com/assets/logo-d36b5212042cebc89b96df4bf6ac24e43db316143e89926c0db839ff694d2de4.svg"
+          rel="mask-icon">
+    <meta content="/assets/msapplication-tile-1196ec67452f618d39cdd85e2e3a542f76574c071051ae7effbfde01710eb17d.png"
+          name="msapplication-TileImage">
+    <meta content="#30353E" name="msapplication-TileColor">
+
+
+    <script type="text/javascript" charset="utf-8" async=""
+            src="http://gitlab.mtime-dev.com/assets/webpack/emoji.de2dcb00f0bc66cae573.chunk.js"></script>
+</head>
+
+<body class="ui_indigo " data-find-file="/go/config-web/find_file/develop" data-group=""
+      data-page="projects:pipelines:index" data-project="config-web">
+
+
+<header class="navbar navbar-gitlab qa-navbar">
+    <a class="sr-only gl-accessibility" href="#content-body" tabindex="1">Skip to content</a>
+    <div class="container-fluid">
+        <div class="header-content">
+            <div class="title-container">
+                <h1 class="title">
+                    <a title="Dashboard" id="logo" href="/"><img class="js-lazy-loaded"
+                                                                 src="/uploads/-/system/appearance/header_logo/1/72.png">
+                    </a></h1>
+                <ul class="list-unstyled navbar-sub-nav">
+                    <li id="nav-projects-dropdown" class="home dropdown header-projects qa-projects-dropdown"><a
+                            data-toggle="dropdown" href="#">
+                        Projects
+                        <svg class=" caret-down">
+                            <use xlink:href="http://gitlab.mtime-dev.comfile:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#angle-down"></use>
+                        </svg>
+                    </a>
+                        <div class="dropdown-menu projects-dropdown-menu">
+                            <div class="projects-dropdown-container">
+                                <div class="project-dropdown-sidebar qa-projects-dropdown-sidebar">
+                                    <ul>
+                                        <li class=""><a class="qa-your-projects-link" href="/dashboard/projects">Your
+                                            projects
+                                        </a></li>
+                                        <li class=""><a href="/dashboard/projects/starred">Starred projects
+                                        </a></li>
+                                        <li class=""><a href="/explore">Explore projects
+                                        </a></li>
+                                    </ul>
+                                </div>
+                                <div class="project-dropdown-content">
+                                    <div>
+                                        <div class="search-input-container hidden-xs"><input type="search"
+                                                                                             placeholder="Search your projects"
+                                                                                             class="form-control"> <i
+                                                aria-hidden="true" class="search-icon fa fa-fw fa-search"></i></div>
+                                        <!----> <!----> <!----> <!----></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="hidden-xs"><a class="dashboard-shortcuts-groups qa-groups-link" title="Groups"
+                                             href="/dashboard/groups">Groups
+                    </a></li>
+                    <li class="visible-lg"><a class="dashboard-shortcuts-activity" title="Activity"
+                                              href="/dashboard/activity">Activity
+                    </a></li>
+                    <li class="visible-lg"><a class="dashboard-shortcuts-milestones" title="Milestones"
+                                              href="/dashboard/milestones">Milestones
+                    </a></li>
+                    <li class="visible-lg"><a class="dashboard-shortcuts-snippets" title="Snippets"
+                                              href="/dashboard/snippets">Snippets
+                    </a></li>
+                    <li class="header-more dropdown hidden-lg">
+                        <a data-toggle="dropdown" href="#">
+                            More
+                            <svg class=" caret-down">
+                                <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#angle-down"></use>
+                            </svg>
+                        </a>
+                        <div class="dropdown-menu">
+                            <ul>
+                                <li class="visible-xs"><a class="dashboard-shortcuts-groups" title="Groups"
+                                                          href="/dashboard/groups">Groups
+                                </a></li>
+                                <li class=""><a title="Activity" href="/dashboard/activity">Activity
+                                </a></li>
+                                <li class=""><a class="dashboard-shortcuts-milestones" title="Milestones"
+                                                href="/dashboard/milestones">Milestones
+                                </a></li>
+                                <li class=""><a class="dashboard-shortcuts-snippets" title="Snippets"
+                                                href="/dashboard/snippets">Snippets
+                                </a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="hidden">
+                        <a title="Projects" class="dashboard-shortcuts-projects" href="/dashboard/projects">Projects
+                        </a></li>
+                </ul>
+
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="header-new dropdown">
+                        <a class="header-new-dropdown-toggle has-tooltip qa-new-menu-toggle" title="New..."
+                           ref="tooltip" aria-label="New..." data-toggle="dropdown" data-placement="bottom"
+                           data-container="body" href="/projects/new">
+                            <svg class="s16">
+                                <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#plus-square"></use>
+                            </svg>
+                            <svg class=" caret-down">
+                                <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#angle-down"></use>
+                            </svg>
+                        </a>
+                        <div class="dropdown-menu-nav dropdown-menu-align-right">
+                            <ul>
+                                <li>
+                                    <a href="/groups/new">New group</a>
+                                </li>
+                                <li>
+                                    <a href="/snippets/new">New snippet</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="hidden-sm hidden-xs">
+                        <div class="has-location-badge search search-form">
+                            <form class="navbar-form" action="/search" accept-charset="UTF-8" method="get"><input
+                                    name="utf8" type="hidden" value="✓">
+                                <div class="search-input-container">
+                                    <div class="location-badge">This project</div>
+                                    <div class="search-input-wrap">
+                                        <div class="dropdown" data-url="/search/autocomplete">
+                                            <input type="search" name="search" id="search" placeholder="Search"
+                                                   class="search-input dropdown-menu-toggle no-outline js-search-dashboard-options disabled"
+                                                   spellcheck="false" tabindex="1" autocomplete="off"
+                                                   data-issues-path="/dashboard/issues"
+                                                   data-mr-path="/dashboard/merge_requests" aria-label="Search">
+                                            <button class="hidden js-dropdown-search-toggle" data-toggle="dropdown"
+                                                    type="button"></button>
+                                            <div class="dropdown-menu dropdown-select">
+                                                <div class="dropdown-content">
+                                                    <ul>
+                                                        <li class="dropdown-menu-empty-item">
+                                                            <a>
+                                                                Loading...
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="dropdown-loading"><i aria-hidden="true" data-hidden="true"
+                                                                                 class="fa fa-spinner fa-spin"></i>
+                                                </div>
+                                            </div>
+                                            <svg class="s16 search-icon">
+                                                <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#search"></use>
+                                            </svg>
+                                            <svg class="s16 clear-icon js-clear-input">
+                                                <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#close"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="group_id" id="group_id" class="js-search-group-options">
+                                <input type="hidden" name="project_id" id="search_project_id" value="48"
+                                       class="js-search-project-options" data-project-path="config-web"
+                                       data-name="config-web" data-issues-path="/go/config-web/issues"
+                                       data-mr-path="/go/config-web/merge_requests" data-issues-disabled="false">
+                                <input type="hidden" name="search_code" id="search_code" value="true">
+                                <input type="hidden" name="repository_ref" id="repository_ref">
+
+                                <div class="search-autocomplete-opts hide" data-autocomplete-path="/search/autocomplete"
+                                     data-autocomplete-project-id="48"></div>
+                            </form>
+                        </div>
+
+                    </li>
+                    <li class="visible-sm-inline-block visible-xs-inline-block">
+                        <a title="Search" aria-label="Search" data-toggle="tooltip" data-placement="bottom"
+                           data-container="body" href="/search">
+                            <svg class="s16">
+                                <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#search"></use>
+                            </svg>
+                        </a></li>
+                    <li class="user-counter"><a title="Issues" class="dashboard-shortcuts-issues" aria-label="Issues"
+                                                data-toggle="tooltip" data-placement="bottom" data-container="body"
+                                                href="/dashboard/issues?assignee_id=218">
+                        <svg class="s16">
+                            <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#issues"></use>
+                        </svg>
+                        <span class="badge hidden issues-count">
+0
+</span>
+                    </a></li>
+                    <li class="user-counter"><a title="Merge requests" class="dashboard-shortcuts-merge_requests"
+                                                aria-label="Merge requests" data-toggle="tooltip"
+                                                data-placement="bottom" data-container="body"
+                                                href="/dashboard/merge_requests?assignee_id=218">
+                        <svg class="s16">
+                            <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#git-merge"></use>
+                        </svg>
+                        <span class="badge hidden merge-requests-count">
+0
+</span>
+                    </a></li>
+                    <li class="user-counter"><a title="Todos" aria-label="Todos" class="shortcuts-todos"
+                                                data-toggle="tooltip" data-placement="bottom" data-container="body"
+                                                href="/dashboard/todos">
+                        <svg class="s16">
+                            <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#todo-done"></use>
+                        </svg>
+                        <span class="badge hidden todos-count">
+0
+</span>
+                    </a></li>
+                    <li class="header-user dropdown">
+                        <a class="header-user-dropdown-toggle" data-toggle="dropdown" href="/kppotato"><img width="23"
+                                                                                                            height="23"
+                                                                                                            class="header-user-avatar qa-user-avatar js-lazy-loaded"
+                                                                                                            src="https://www.gravatar.com/avatar/e54b6be04f971c209d6da5c264f1540a?s=46&amp;d=identicon">
+                            <svg class=" caret-down">
+                                <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#angle-down"></use>
+                            </svg>
+                        </a>
+                        <div class="dropdown-menu-nav dropdown-menu-align-right">
+                            <ul>
+                                <li class="current-user">
+                                    <div class="user-name bold">
+                                        kuipeng
+                                    </div>
+                                    @kppotato
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a class="profile-link" data-user="kppotato" href="/kppotato">Profile</a>
+                                </li>
+                                <li>
+                                    <a href="/profile">Settings</a>
+                                </li>
+                                <li>
+                                    <a href="/help">Help</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a class="sign-out-link" href="/users/sign_out">Sign out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <button class="navbar-toggle hidden-sm hidden-md hidden-lg" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <svg class="s12 more-icon js-navbar-toggle-right">
+                    <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#more"></use>
+                </svg>
+                <svg class="s12 close-icon js-navbar-toggle-left">
+                    <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#close"></use>
+                </svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+<div class="layout-page page-with-contextual-sidebar">
+    <div class="nav-sidebar">
+        <div class="nav-sidebar-inner-scroll" style="overflow-y: scroll;">
+            <div class="context-header">
+                <a title="config-web" href="/go/config-web">
+                    <div class="avatar-container s40 project-avatar">
+                        <div class="avatar s40 avatar-tile identicon" style="background-color: #EEEEEE; color: #555">C
+                        </div>
+                    </div>
+                    <div class="sidebar-context-title">
+                        config-web
+                    </div>
+                </a></div>
+            <ul class="sidebar-top-level-items">
+                <li class="home"><a class="shortcuts-project" href="/go/config-web">
+                    <div class="nav-icon-container">
+                        <svg>
+                            <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#project"></use>
+                        </svg>
+                    </div>
+                    <span class="nav-item-name">
+Overview
+</span>
+                </a>
+                    <ul class="sidebar-sub-level-items fly-out-list" style="">
+                        <li class="fly-out-top-item"><a href="/go/config-web"><strong class="fly-out-top-item-name">
+                            Overview
+                        </strong>
+                        </a></li>
+                        <li class="divider fly-out-top-item"></li>
+                        <li class=""><a title="Project details" class="shortcuts-project" href="/go/config-web"><span>Details</span>
+                        </a></li>
+                        <li class=""><a title="Activity" class="shortcuts-project-activity"
+                                        href="/go/config-web/activity"><span>Activity</span>
+                        </a></li>
+                        <li class=""><a title="Cycle Analytics" class="shortcuts-project-cycle-analytics"
+                                        href="/go/config-web/cycle_analytics"><span>Cycle Analytics</span>
+                        </a></li>
+                    </ul>
+                </li>
+                <li class=""><a class="shortcuts-tree" href="/go/config-web/tree/develop">
+                    <div class="nav-icon-container">
+                        <svg>
+                            <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#doc_text"></use>
+                        </svg>
+                    </div>
+                    <span class="nav-item-name">
+Repository
+</span>
+                </a>
+                    <ul class="sidebar-sub-level-items fly-out-list" style="">
+                        <li class="fly-out-top-item"><a href="/go/config-web/tree/develop"><strong
+                                class="fly-out-top-item-name">
+                            Repository
+                        </strong>
+                        </a></li>
+                        <li class="divider fly-out-top-item"></li>
+                        <li class=""><a href="/go/config-web/tree/develop">Files
+                        </a></li>
+                        <li class=""><a href="/go/config-web/commits/develop">Commits
+                        </a></li>
+                        <li class=""><a href="/go/config-web/branches">Branches
+                        </a></li>
+                        <li class=""><a href="/go/config-web/tags">Tags
+                        </a></li>
+                        <li class=""><a href="/go/config-web/graphs/develop">Contributors
+                        </a></li>
+                        <li class=""><a href="/go/config-web/network/develop">Graph
+                        </a></li>
+                        <li class=""><a href="/go/config-web/compare?from=develop&amp;to=develop">Compare
+                        </a></li>
+                        <li class=""><a href="/go/config-web/graphs/develop/charts">Charts
+                        </a></li>
+                    </ul>
+                </li>
+                <li class=""><a class="shortcuts-container-registry" href="/go/config-web/container_registry">
+                    <div class="nav-icon-container">
+                        <svg>
+                            <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#disk"></use>
+                        </svg>
+                    </div>
+                    <span class="nav-item-name">
+Registry
+</span>
+                </a></li>
+                <li class="active"><a class="shortcuts-pipelines" href="/go/config-web/pipelines">
+                    <div class="nav-icon-container">
+                        <svg>
+                            <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#pipeline"></use>
+                        </svg>
+                    </div>
+                    <span class="nav-item-name">
+CI / CD
+</span>
+                </a>
+                    <ul class="sidebar-sub-level-items">
+                        <li class="fly-out-top-item active"><a href="/go/config-web/pipelines"><strong
+                                class="fly-out-top-item-name">
+                            CI / CD
+                        </strong>
+                        </a></li>
+                        <li class="divider fly-out-top-item"></li>
+                        <li class="active"><a title="Pipelines" class="shortcuts-pipelines"
+                                              href="/go/config-web/pipelines"><span>
+Pipelines
+</span>
+                        </a></li>
+                        <li class=""><a title="Schedules" class="shortcuts-builds"
+                                        href="/go/config-web/pipeline_schedules"><span>
+Schedules
+</span>
+                        </a></li>
+                    </ul>
+                </li>
+                <li class=""><a title="Members" class="shortcuts-tree" href="/go/config-web/settings/members">
+                    <div class="nav-icon-container">
+                        <svg>
+                            <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#users"></use>
+                        </svg>
+                    </div>
+                    <span class="nav-item-name">
+Members
+</span>
+                </a>
+                    <ul class="sidebar-sub-level-items is-fly-out-only">
+                        <li class="fly-out-top-item"><a href="/go/config-web/project_members"><strong
+                                class="fly-out-top-item-name">
+                            Members
+                        </strong>
+                        </a></li>
+                    </ul>
+                </li>
+                <a class="toggle-sidebar-button js-toggle-sidebar" role="button" title="Toggle sidebar" type="button">
+                    <svg class=" icon-angle-double-left">
+                        <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#angle-double-left"></use>
+                    </svg>
+                    <svg class=" icon-angle-double-right">
+                        <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#angle-double-right"></use>
+                    </svg>
+                    <span class="collapse-text">Collapse sidebar</span>
+                </a>
+                <button name="button" type="button" class="close-nav-button">
+                    <svg class="s16">
+                        <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#close"></use>
+                    </svg>
+                    <span class="collapse-text">Close sidebar</span>
+                </button>
+                <li class="hidden">
+                    <a title="Activity" class="shortcuts-project-activity" href="/go/config-web/activity"><span>
+Activity
+</span>
+                    </a></li>
+                <li class="hidden">
+                    <a title="Network" class="shortcuts-network" href="/go/config-web/network/develop">Graph
+                    </a></li>
+                <li class="hidden">
+                    <a title="Charts" class="shortcuts-repository-charts" href="/go/config-web/graphs/develop/charts">Charts
+                    </a></li>
+                <li class="hidden">
+                    <a title="Commits" class="shortcuts-commits" href="/go/config-web/commits/develop">Commits
+                    </a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+
+        <div class="mobile-overlay"></div>
+        <div class="alert-wrapper">
+
+
+            <nav class="breadcrumbs container-fluid container-limited" role="navigation">
+                <div class="breadcrumbs-container">
+                    <button name="button" type="button" class="toggle-mobile-nav"><span
+                            class="sr-only">Open sidebar</span>
+                        <i aria-hidden="true" data-hidden="true" class="fa fa-bars"></i>
+                    </button>
+                    <div class="breadcrumbs-links js-title-container">
+                        <ul class="list-unstyled breadcrumbs-list js-breadcrumbs-list">
+                            <li><a class="group-path breadcrumb-item-text js-breadcrumb-item-text " href="/go"><img
+                                    class="avatar-tile js-lazy-loaded" width="15" height="15"
+                                    src="/uploads/-/system/group/avatar/8/go.png">go</a>
+                                <svg class="s8 breadcrumbs-list-angle">
+                                    <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#angle-right"></use>
+                                </svg>
+                            </li>
+                            <li><a href="/go/config-web"><span class="breadcrumb-item-text js-breadcrumb-item-text">config-web</span></a>
+                                <svg class="s8 breadcrumbs-list-angle">
+                                    <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#angle-right"></use>
+                                </svg>
+                            </li>
+
+                            <li>
+                                <h2 class="breadcrumbs-sub-title"><a href="/go/config-web/pipelines">Pipelines</a></h2>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </nav>
+
+            <div class="flash-container flash-container-page">
+            </div>
+
+        </div>
+        <div class=" ">
+            <div class="content" id="content-body">
+                <div class="container-fluid container-limited">
+                    <div class="pipelines-container">
+                        <div class="top-area scrolling-tabs-container inner-page-scroll-tabs">
+                            <div class="fade-left"><i aria-hidden="true" class="fa fa-angle-left"></i></div>
+                            <div class="fade-right"><i aria-hidden="true" class="fa fa-angle-right"></i></div>
+                            <ul class="nav-links scrolling-tabs separator is-initialized">
+                                <li class="active"><a role="button" class="js-pipelines-tab-all">
+                                    All
+
+                                    <span class="badge">
+        195
+      </span></a></li>
+                                <li class=""><a role="button" class="js-pipelines-tab-pending">
+                                    Pending
+
+                                    <span class="badge">
+        0
+      </span></a></li>
+                                <li class=""><a role="button" class="js-pipelines-tab-running">
+                                    Running
+
+                                    <span class="badge">
+        0
+      </span></a></li>
+                                <li class=""><a role="button" class="js-pipelines-tab-finished">
+                                    Finished
+
+                                    <span class="badge">
+        78
+      </span></a></li>
+                                <li class=""><a role="button" class="js-pipelines-tab-branches">
+                                    Branches
+
+                                    <!----></a></li>
+                                <li class=""><a role="button" class="js-pipelines-tab-tags">
+                                    Tags
+
+                                    <!----></a></li>
+                            </ul> <!----></div>
+                        <div class="content-list pipelines">
+                            <div class="table-holder">
+                                <div class="ci-table">
+                                    <div role="row" class="gl-responsive-table-row table-row-header">
+                                        <div role="rowheader"
+                                             class="table-section section-10 js-pipeline-status pipeline-status">
+                                            Status
+                                        </div>
+                                        <div role="rowheader"
+                                             class="table-section section-15 js-pipeline-info pipeline-info">
+                                            Pipeline
+                                        </div>
+                                        <div role="rowheader"
+                                             class="table-section section-20 js-pipeline-commit pipeline-commit">
+                                            Commit
+                                        </div>
+                                        <div role="rowheader"
+                                             class="table-section section-20 js-pipeline-stages pipeline-stages">
+                                            Stages
+                                        </div>
+                                    </div>
+                                    <div class="commit gl-responsive-table-row">
+                                        <div class="table-section section-10 commit-link">
+                                            <div role="rowheader" class="table-mobile-header">
+                                                Status
+                                            </div>
+                                            <div class="table-mobile-content"><a href="/go/config-web/pipelines/28551"
+                                                                                 title="" class="ci-status ci-success"
+                                                                                 data-original-title=""><span
+                                                    class="ci-status-icon ci-status-icon-success js-ci-status-icon-success"><svg
+                                                    class="s16"><use
+                                                    xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#status_success"></use></svg></span>
+                                                passed
+                                            </a></div>
+                                        </div>
+                                        <div class="table-section section-15 hidden-xs hidden-sm pipeline-tags"><a
+                                                href="/go/config-web/pipelines/28551" class="js-pipeline-url-link"><span
+                                                class="pipeline-id">#28551</span></a> <span>by</span> <a href="/lei.cao"
+                                                                                                         class="user-avatar-link js-pipeline-url-user"><img
+                                                src="http://gitlab.mtime-dev.com/uploads/-/system/user/avatar/59/avatar.png"
+                                                width="20" height="20" alt=""
+                                                data-src="http://gitlab.mtime-dev.com/uploads/-/system/user/avatar/59/avatar.png"
+                                                data-container="body" data-placement="top" title="" class="avatar s20 "
+                                                data-original-title="曹磊"><!----></a> <!---->
+                                            <div class="label-container"><span title=""
+                                                                               class="js-pipeline-url-latest label label-success"
+                                                                               data-original-title="Latest pipeline for this branch">
+      latest
+    </span> <!----> <!----> <!----> <!----></div>
+                                        </div>
+                                        <div class="table-section section-20">
+                                            <div role="rowheader" class="table-mobile-header">
+                                                Commit
+                                            </div>
+                                            <div class="table-mobile-content">
+                                                <div class="branch-commit">
+                                                    <div class="icon-container"><!---->
+                                                        <svg class="s16">
+                                                            <use xlink:href="file:///D:/project/go/src/github.com/kppotato/gitlabMonitorUI/icons.svg#fork"></use>
+                                                        </svg>
+                                                    </div>
+                                                    <a href="/go/config-web/commits/develop" data-container="body"
+                                                       title="" class="ref-name" data-original-title="develop">
+                                                        develop
+                                                    </a>
+                                                    <div class="commit-icon js-commit-icon">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                             viewBox="0 0 16 16">
+                                                            <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3.876-1.008a4.002 4.002 0 0 1-7.752 0A1.01 1.01 0 0 1 4 9H1a1 1 0 1 1 0-2h3c.042 0 .083.003.124.008a4.002 4.002 0 0 1 7.752 0A1.01 1.01 0 0 1 12 7h3a1 1 0 0 1 0 2h-3a1.01 1.01 0 0 1-.124-.008z"></path>
+                                                        </svg>
+
+                                                    </div>
+                                                    <a href="/go/config-web/commit/55b1ce68924e597f36eeb30bb92c5f190ac96a7b"
+                                                       class="commit-sha">
+                                                        55b1ce68
+                                                    </a>
+                                                    <div class="commit-title flex-truncate-parent"><span
+                                                            class="flex-truncate-child"><a href="/lei.cao"
+                                                                                           class="user-avatar-link avatar-image-container"><img
+                                                            src="http://gitlab.mtime-dev.com/uploads/-/system/user/avatar/59/avatar.png"
+                                                            width="20" height="20" alt="lei.cao's avatar"
+                                                            data-src="http://gitlab.mtime-dev.com/uploads/-/system/user/avatar/59/avatar.png"
+                                                            data-container="body" data-placement="top" title=""
+                                                            class="avatar s20 " data-original-title="lei.cao">
+                                                        <!----></a> <a
+                                                            href="/go/config-web/commit/55b1ce68924e597f36eeb30bb92c5f190ac96a7b"
+                                                            class="commit-row-message">
+        Merge branch 'develop' of gitlab.mtime-dev.com:go/config-web into develop
+      </a></span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-section section-wrap section-20 stage-cell">
+                                            <div role="rowheader" class="table-mobile-header">
+                                                Stages
+                                            </div>
+                                            <div class="table-mobile-content">
+                                                <div class="stage-container dropdown js-mini-pipeline-graph">
+                                                    <div class="dropdown">
+                                                        <button title="" data-placement="top" data-toggle="dropdown"
+                                                                type="button" id="stageDropdown" aria-haspopup="true"
+                                                                aria-expanded="false"
+                                                                class="mini-pipeline-graph-dropdown-toggle js-builds-dropdown-button ci-status-icon-success"
+                                                                data-original-title="build: passed"><span
+                                                                aria-hidden="true" aria-label="build: passed"><svg
+                                                                class="s16"><use
+                                                                xlink:href="/static/icons.svg#status_success_borderless">
+
+
+                                                        </use></svg></span>
+                                                            <i aria-hidden="true" class="fa fa-caret-down"></i></button>
+                                                        <ul aria-labelledby="stageDropdown"
+                                                            class="dropdown-menu mini-pipeline-graph-dropdown-menu js-builds-dropdown-container">
+                                                            <li class="js-builds-dropdown-list scrollable-menu js-builds-dropdown-loading">
+                                                                <ul></ul>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <div class="modal-open">
+                                        <div id="confirmation-modal" role="dialog" tabindex="-1" class="modal">
+                                            <div role="document" class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header"><h4 class="modal-title pull-left">
+                                                        Retry pipeline #''?
+                                                    </h4>
+                                                        <button type="button" data-dismiss="modal" aria-label="Close"
+                                                                class="close pull-right"><span
+                                                                aria-hidden="true">×</span></button>
+                                                    </div>
+                                                    <div class="modal-body"><p>You’re about to retry pipeline
+                                                        <strong>#</strong>.</p></div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" data-dismiss="modal"
+                                                                class="btn btn-default">
+                                                            Cancel
+                                                        </button> <!---->
+                                                        <button type="button" data-dismiss="modal"
+                                                                class="btn js-primary-button btn-danger">
+                                                            Retry pipeline
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!----></div>
+                                </div>
+                            </div>
+                            <div class="gl-pagination">
+                                <ul class="pagination clearfix">
+                                    <li class="js-previous-button disabled"><a>
+                                        Prev
+                                    </a></li>
+                                    <li class="page active"><a>
+                                        1
+                                    </a></li>
+                                    <li class="page"><a>
+                                        2
+                                    </a></li>
+                                    <li class="page"><a>
+                                        3
+                                    </a></li>
+                                    <li class="page"><a>
+                                        4
+                                    </a></li>
+                                    <li class="page"><a>
+                                        5
+                                    </a></li>
+                                    <li class="page separator"><a>
+                                        ...
+                                    </a></li>
+                                    <li class="js-next-button"><a>
+                                        Next
+                                    </a></li>
+                                    <li class="js-last-button"><a>
+                                        Last »
+                                    </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{{end}}

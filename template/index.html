@@ -1,0 +1,333 @@
+[[define "index.html"]]
+[[template "header" .]]
+<div class="app" id="app">
+    <div class="" style="zoom: 1;">
+        <div data-v-6c0a0fc1="" class="projects">
+            <project-card v-for="project in projects" :key="project.id" :project="project"></project-card>
+        </div>
+    </div>
+    <div data-v-6c0a0fc1="" class="configure">
+        Configure
+    </div>
+</div>
+[[template "footer" ]]
+<script>
+    function exchange(str) {
+        obj = JSON.parse(str)
+        result = []
+        for (x in obj) {
+            if (obj[x]) {
+                result.push(obj[x])
+            }
+        }
+        return result
+    }
+    Vue.component('project-card', {
+        props: ['project'],
+        data: function () {
+            return {
+            }
+        },
+        computed:{
+            timeagofun:function () {
+                var timeagoInstance = new timeago(null,"2018-09-19T11:11:39.225Z");
+                timeagoInstance.render(document.querySelectorAll(".time"+this.project.id), 'zh_CN');
+                return timeagoInstance.format(this.project.last_activity_at,"zh_CN")
+            },
+            stautsfun:function () {
+                var a
+                for( line in  this.project.Piplines){
+                    a = this.project.Piplines[line]
+                    if (a.updated_at > this.project.Piplines[line].updated_at){
+                        a =this.project.Piplines[line]
+                    }
+                }
+                if (a){
+                    return a.status
+                }
+                return ""
+            }
+        },
+        template: '<div  data-v-4d356754="" data-v-6c0a0fc1="" :class="[\'project-card\', stautsfun]">\n' +
+        '    <div data-v-4d356754="" class="content">\n' +
+        '        <div data-v-4d356754="" class="title small">{{ project.namespace.name }}</div>\n' +
+        '        <a data-v-4d356754="" target="_blank" rel="noopener noreferrer"\n' +
+        '           :href="project.web_url" class="title">\n' +
+        '        {{ project.name }}\n' +
+        '        </a>\n' +
+        '        <div data-v-4d356754="" class="pipeline-container">\n' +
+        '            <em v-if="project.Piplines == null ||  project.Piplines.length==0 " data-v-4d356754=""\n' +
+        '                class="no-pipelines">\n' +
+        '                No recent pipelines\n' +
+        '            </em>\n' +
+        '            <div v-else>\n' +
+        '                <pipeline-view v-for="pipline in project.Piplines" :web_url="project.web_url" :pipline="pipline">\n' +
+        '                </pipeline-view>\n' +
+        '            </div>\n' +
+        '        </div>\n' +
+        '    </div>\n' +
+        '    <div data-v-4d356754="" class="spacer"></div>\n' +
+        '    <div data-v-4d356754="" class="info">\n' +
+        '        <div data-v-4d356754="" class="spacer"></div>\n' +
+        '        <svg data-v-1e0d932b="" data-v-4d356754="" class="calendar-icon" style="width: 12px; height: 12px;">\n' +
+        '            <use data-v-1e0d932b="" href="/static/icons.svg#calendar"\n' +
+        '                 xlink:href="/static/icons.svg#calendar"></use>\n' +
+        '        </svg>\n' +
+        '<div data-v-4d356754="" :class="\'time\'+project.id" :data-timeago="project.last_activity_at">{{ timeagofun }}</div>\n'+
+        '    </div>\n' +
+        '</div>'
+    })
+    Vue.component('pipeline-view',{
+        props: ['web_url','pipline'],
+        data: function () {
+            return {
+                duration: null,
+            }
+        },
+        mounted:function() {
+            this.setupDurationCounter();
+        },
+        watch: {
+            'pipline.status'() {
+                this.$nextTick(() => this.setupDurationCounter());
+            }
+        },
+        methods: {
+            setupDurationCounter:function () {
+                const pipeline = this.pipline;
+                const startedAtDiffSeconds = ((pipeline.finished_at !== null ? new Date(pipeline.finished_at) : new Date()) - new Date(pipeline.started_at !== null ? pipeline.started_at : pipeline.created_at)) / 1000;
+
+                if (pipeline.status !== 'running' && pipeline.duration !== null && (this.duration === null || Math.abs(pipeline.duration - this.duration) > 5)) {
+                    this.duration = pipeline.duration;
+                } else if (this.duration === null || pipeline.updated_at !== this.updatedAt || Math.abs(startedAtDiffSeconds - this.updatedAt) > 5) {
+                    // Update the duration if the started_at property changed or the timer is >5 seconds off
+                    this.duration = startedAtDiffSeconds;
+                    this.updatedAt = pipeline.updated_at;
+                }
+                if (pipeline && pipeline.status === 'running') {
+                    if (!this.durationCounterIntervalId) {
+                        this.durationCounterIntervalId = setInterval(() => {
+                            this.duration++;
+                    }, 1000);
+                    }
+                } else {
+                    if (this.durationCounterIntervalId) {
+                        clearInterval(this.durationCounterIntervalId);
+                        this.durationCounterIntervalId = null;
+                    }
+                }
+            }
+        },
+        computed:{
+            durationString:function() {
+                const hrs = ~~(this.duration / 3600);
+                const mins = ~~((this.duration % 3600) / 60);
+                const secs = Math.trunc(this.duration % 60);
+
+                // Output like "1:01" or "4:03:59" or "123:03:59"
+                var timeString = "";
+
+                if (hrs > 0) {
+                    timeString += "" + hrs + ":" + (mins < 10 ? "0" : "");
+                }
+
+                timeString += mins + ":" + (secs < 10 ? "0" : "");
+                timeString += secs;
+
+                return timeString;
+            }
+        },
+        template:'<div data-v-6adad310="" data-v-4d356754="" class="pipeline-view ">\n' +
+        '                        <div data-v-6adad310="">\n' +
+        '                            <a data-v-6adad310="" class="branch" target="_blank" rel="noopener noreferrer"\n' +
+        '                               :href="web_url + \'/tree/\' + pipline.ref">\n' +
+        '                                <svg data-v-6adad310="" version="1.1" role="presentation" width="9"\n' +
+        '                                     height="14.4" viewBox="0 0 10 16" class="octicon"\n' +
+        '                                     style="font-size: 0.9em;">\n' +
+        '                                    <use xlink:href="/static/icons.svg#branch"></use>\n' +
+        '                                </svg>{{ pipline.ref }}   {{ pipline.User.name}}\n' +
+        '                            </a>\n' +
+        '                            <div data-v-6adad310="" class="pipeline"><a data-v-6adad310="" target="_blank"\n' +
+        '                                                                        rel="noopener noreferrer"\n' +
+        '                                                                        :href="web_url + \'/pipelines/\'+ pipline.id "\n' +
+        '                                                                        class="pipeline-id-link">\n' +
+        '                                <svg data-v-1e0d932b="" data-v-6adad310="" class="pipeline-icon"\n' +
+        '                                     style="width: 12px; height: 12px;">\n' +
+        '                                    <use data-v-1e0d932b="" href="/static/icons.svg#staged"\n' +
+        '                                         xlink:href="/static/icons.svg#staged"></use>\n' +
+        '                                </svg>\n' +
+        '                                <div data-v-6adad310="" class="pipeline-id">{{ pipline.id }}</div>\n' +
+        '                            </a>\n' +
+        '                                <div data-v-6adad310="" class="jobs">\n' +
+        '                                 <job-view v-for="job in pipline.Jobs" :web_url="web_url" :job="job">\n' +
+        '                                  </job-view> \n' +
+        '                                </div>\n' +
+        '                                <svg data-v-1e0d932b="" data-v-6adad310="" class="clock-icon"\n' +
+        '                                     style="width: 10px; height: 10px;">\n' +
+        '                                    <use data-v-1e0d932b="" href="/static/icons.svg#clock"\n' +
+        '                                         xlink:href="/static/icons.svg#clock"></use>\n' +
+        '                                </svg>\n' +
+        '                                <span data-v-6adad310="" class="duration">{{ durationString }}</span><!----><!----></div>\n' +
+        '                        </div>\n' +
+        '                    </div>'
+    })
+    Vue.component('job-view',{
+        props: ['web_url','job'],
+        data: function () {
+            return {
+            }
+        },
+        computed:{
+            statusIconName:function() {
+                switch (this.job.status) {
+                    case 'canceled':
+                        return 'status_canceled_borderless';
+                    case 'failed':
+                        return this.job.allow_failure ?
+                                'status_warning_borderless' :
+                                'status_failed_borderless';
+                    case 'pending':
+                        return 'status_pending_borderless';
+                    case 'running':
+                        return 'status_running_borderless';
+                    case 'skipped':
+                        return 'status_skipped_borderless';
+                    case 'manual':
+                        return 'status_manual_borderless';
+                    case 'success':
+                        return 'status_success_borderless';
+                    default:
+                        return 'status_not_found_borderless';
+                }
+            },
+        },
+        template:  '<a data-v-8fae0f76="" data-v-6adad310=""\n' +
+    '                                       target="_blank"\n' +
+    '                                       rel="noopener noreferrer"\n' +
+    '                                       :href="web_url+\'/-/jobs/\'+job.id"\n' +
+    '                                       class="job-view">\n' +
+    '                                        <div data-v-8fae0f76=""\n' +
+    '                                             :class="[\'job-circle\', job.status === \'failed\' ? (job.allow_failure ? \'warning\' : \'failed\') : job.status, \'square\']">\n' +
+    '                                            <svg data-v-8fae0f76="">\n' +
+    '                                                <title>{{ job.name }}</title>\n' +
+    '                                                <use data-v-8fae0f76="" v-bind="{\n' +
+    '            \'href\': \'/static/icons.svg#\' + statusIconName,\n' +
+    '            \'xlink:href\': \'/static/icons.svg#\' + statusIconName\n' +
+    '          }"></use>\n' +
+    '                                            </svg>\n' +
+    '                                        </div>\n' +
+    '                                        <div data-v-8fae0f76="" class="pipe"></div>\n' +
+    '                                    </a>\n'
+    })
+
+    var vm = new Vue({
+        el: '#app',
+        data:{
+            projects: exchange([[.jsonobj]]
+        ),
+        message: 'Hello Vue!'
+        },
+    });
+    (function ($) {
+        $.websocket = function (options) {
+            var defaults = {
+                domain: top.location.hostname,
+                port: 3398,
+                protocol: ""
+            };
+            var opts = $.extend(defaults, options);
+            var szServer = "ws://" + opts.domain + ":" + opts.port + "/" + opts.protocol;
+            var socket = null;
+            var bOpen = false;
+            var t1 = 0;
+            var t2 = 0;
+            var messageevent = {
+                onInit: function () {
+                    if (!("WebSocket" in window) && !("MozWebSocket" in window)) {
+                        return false;
+                    }
+                    if (("MozWebSocket" in window)) {
+                        socket = new MozWebSocket(szServer);
+                    } else {
+                        socket = new WebSocket(szServer);
+                    }
+                    if (opts.onInit) {
+                        opts.onInit();
+                    }
+                },
+                onOpen: function (event) {
+                    bOpen = true;
+                    if (opts.onOpen) {
+                        opts.onOpen(event);
+                    }
+                },
+                onSend: function (msg) {
+                    t1 = new Date().getTime();
+                    if (opts.onSend) {
+                        opts.onSend(msg);
+                    }
+                    socket.send(msg);
+                },
+                onMessage: function (msg) {
+                    t2 = new Date().getTime();
+                    if (opts.onMessage) {
+                        opts.onMessage(msg.data, t2 - t1);
+                    }
+                },
+                onError: function (event) {
+                    if (opts.onError) {
+                        opts.onError(event);
+                    }
+                },
+                onClose: function (event) {
+                    if (opts.onclose) {
+                        opts.onclose(event);
+                    }
+                    if (socket.close() != null) {
+                        socket = null;
+                    }
+                }
+            }
+
+            messageevent.onInit();
+            socket.onopen = messageevent.onOpen;
+            socket.onmessage = messageevent.onMessage;
+            socket.onerror = messageevent.onError;
+            socket.onclose = messageevent.onClose;
+
+            this.send = function (pData) {
+                if (bOpen == false) {
+                    return false;
+                }
+                messageevent.onSend(pData);
+                return true;
+            }
+            this.close = function () {
+                messageevent.onClose();
+            }
+            return this;
+        };
+        var Socket1 = $.websocket({
+            domain: location.hostname,   //这是与服务器的域名或IP
+            port: location.port,                  //这是服务器端口号
+            protocol: "ws",            //这东西可有可无,组合起来就是 ws://www.qhnovel.com:8080/test
+            onOpen: function (event) {
+                // alert("已经与服务端握手,onOpen可省略不写");
+            },
+            onError: function (event) {
+                // alert("发生了错误,onError可省略不写");
+            },
+            onSend: function (msg) {
+                // alert("发送数据额外的代码,可省略不写"+msg);
+            },
+            onMessage: function (result, nTime) {
+                vm.projects = exchange(result)
+                console.log(vm.projects)
+            }
+        });
+        Socket1.send("hao a")
+    })(jQuery);
+
+</script>
+
+[[end]]
